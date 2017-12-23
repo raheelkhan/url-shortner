@@ -18,19 +18,7 @@
                 <div class="row">
                     <div class="col-sm-10 offset-sm-1 text-center">
                         <h1 class="display-3">Url Shortener</h1>
-                        <div class="info-form">
-                            {!! Form::open(array('action' => 'IndexController@store', 'method' => 'post', 'class' => 'form-inline justify-content-center')) !!}
-                                <input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-                                <div class="form-group">
-                                    <label class="sr-only">Url</label>
-                                     <input type="text" name="url" class="form-control form-control-lg" placeholder="Enter url here..">
-                                </div>
-                                <button type="submit" class="btn btn-success btn-lg">okay, go!</button>
-                            {!! Form::close() !!}
-                        </div>
-                        @if(isset($data['error']))
-                            <div class="alert alert-danger">{{ $data['error'] }}</div>
-                        @endif
+                        <div class="alert alert-info"><a href="{{ $data['short_url'] }}">{{ $data['short_url'] }}</a></div>
                     </div>
                 </div>
             </div>
