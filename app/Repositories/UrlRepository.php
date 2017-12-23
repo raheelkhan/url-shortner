@@ -13,7 +13,11 @@ class UrlRepository implements RepositoryInterface
      */
     public function create(array $data): Url
     {
-        return new Url();
+        $url = new Url();
+        $url->url = $data['url'];
+        $url->save();
+        
+        return $url;
     }
 
     /**
@@ -23,26 +27,40 @@ class UrlRepository implements RepositoryInterface
      */
     public function update(int $id, array $data): Url
     {
-        return new Url();
+        $url = Url::find($id);
+        if ($url) {
+            $url->short_url = $data['short_url'];
+            $url->save();
+
+            return $url;
+        }
     }
 
     /**
      * @param int $id
-     * @return Url[]
+     * @return Url|Illuminate\Database\Eloquent\Collection
      */
-    public function read(int $id = null): array
+    public function read(int $id = null)
     {
-        return [];
+        $url = (($id) ? Url::findOrFail($id) : Url::all())->toArray();
+
+        return $url;
     }
 
 
     /**
-     * @param int $id
+     * @param string $column
+     * @param string $value
      * @return Url[]
      */
-    public function findBy(string $column): array
+    public function findBy(string $column, string $value): array
     {
-        return [];
+        $urls = [];
+        foreach (Url::where($column, $value)->cursor() as $url) {
+            $urls[] = $url;
+        }
+
+        return $urls;
     }
 
     /**

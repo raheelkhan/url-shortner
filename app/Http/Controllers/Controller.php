@@ -37,7 +37,7 @@ class Controller extends BaseController
             'status' => 'error',
             'message' => $message
         ];
-
-        return response()->json($message, $status_code);
+        
+        return response()->json($response, $status_code);
     }
 }

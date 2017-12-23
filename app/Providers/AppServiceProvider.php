@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\UrlValidator;
+use App\Services\UrlService;
 use App\Http\Controllers\UrlController;
 use App\Http\Controllers\StatController;
 use App\Repositories\RepositoryInterface;
@@ -29,8 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UrlValidator::class, function () {
-            return new UrlValidator();
+        $this->app->bind(UrlService::class, function () {
+            return new UrlService();
         });
 
         $this->app->when(UrlController::class)

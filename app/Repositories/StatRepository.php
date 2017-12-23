@@ -9,7 +9,7 @@ class StatRepository implements RepositoryInterface
 {
     /**
      * @param array $data
-     * @return Url
+     * @return Stat
      */
     public function create(array $data): Stat
     {
@@ -19,7 +19,7 @@ class StatRepository implements RepositoryInterface
     /**
      * @param int $id
      * @param array $data
-     * @return Url
+     * @return Stat
      */
     public function update(int $id, array $data): Stat
     {
@@ -28,19 +28,19 @@ class StatRepository implements RepositoryInterface
 
     /**
      * @param int $id
-     * @return Url[]
+     * @return Stat
      */
-    public function read(int $id = null): array
+    public function read(int $id = null): Stat
     {
-        return [];
+        return new Stat();
     }
 
 
     /**
-     * @param int $id
-     * @return Url[]
+     * @param string 
+     * @return Stat[]
      */
-    public function findBy(string $column): array
+    public function findBy(string $column, string $value): array
     {
         return [];
     }
