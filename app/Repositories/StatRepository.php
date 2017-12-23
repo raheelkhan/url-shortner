@@ -9,30 +9,30 @@ class StatRepository implements RepositoryInterface
 {
     /**
      * @param array $data
-     * @return Stat
+     * @return array
      */
-    public function create(array $data): Stat
+    public function create(array $data): array
     {
-        return new Stat();
+        return (new Stat())->toArray();
     }
 
     /**
      * @param int $id
      * @param array $data
-     * @return Stat
+     * @return array
      */
-    public function update(int $id, array $data): Stat
+    public function update(int $id, array $data): array
     {
-        return new Stat();
+        return (new Stat())->toArray();
     }
 
     /**
      * @param int $id
-     * @return Stat
+     * @return array
      */
-    public function read(int $id = null): Stat
+    public function read(int $id = null): array
     {
-        return new Stat();
+        return (new Stat())->toArray();
     }
 
 

@@ -4,11 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\UrlService;
-use App\Http\Controllers\UrlController;
-use App\Http\Controllers\StatController;
-use App\Repositories\RepositoryInterface;
 use App\Repositories\UrlRepository;
 use App\Repositories\StatRepository;
+use App\Services\UrlApi;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,20 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(UrlService::class, function () {
-            return new UrlService();
+        $this->app->bind(UrlApi::class, function () {
+            return new UrlApi(new UrlService(), new UrlRepository());
         });
-
-        $this->app->when(UrlController::class)
-          ->needs(RepositoryInterface::class)
-          ->give(function () {
-              return new UrlRepository;
-          });
-
-        $this->app->when(StatController::class)
-          ->needs(RepositoryInterface::class)
-          ->give(function () {
-              return new StatRepository;
-          });
     }
 }
