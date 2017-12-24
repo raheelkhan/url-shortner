@@ -43,16 +43,18 @@ class UrlController extends Controller
     public function store(Request $request)
     {
         $url = $request->get('url');
-        if ($url) {
-            try {
-                $url = $this->api->saveUrl($url);
-                return $this->sendOkResponse($url);
-            } catch (InvalidUrlException $e) {
-                return $this->sendErrorResponse($e, 500);
-            }            
+        if (!$url) {
+            return $this->sendErrorResponse('Missing URL', 500);
         }
-        
-        return $this->sendErrorResponse('Missing URL', 500);
+        try {
+            $url = $this->api->saveUrl($url);
+            
+            return $this->sendOkResponse($url);
+        } catch (InvalidUrlException $e) {
+            
+            return $this->sendErrorResponse($e, 500);
+        }            
+
     }
 
     /**

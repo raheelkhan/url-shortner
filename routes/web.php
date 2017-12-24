@@ -13,3 +13,4 @@
 
 Route::get('/', 'IndexController@index');
 Route::post('short', 'IndexController@store');
+Route::get('/{url}', 'IndexController@route');

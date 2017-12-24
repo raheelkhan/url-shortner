@@ -16,15 +16,10 @@ class UrlService
      * 
      * @param string $url
      * @return bool
-     * @throws InvalidUrlException
      */
     public function validate(string $url): bool
     {
-        if(filter_var($url, FILTER_VALIDATE_URL)) {
-            return true;
-        }
-
-        throw new InvalidUrlException('Invalid URL');
+        return filter_var($url, FILTER_VALIDATE_URL);
     }
 
     /**
