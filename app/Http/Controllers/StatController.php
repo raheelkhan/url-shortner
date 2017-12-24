@@ -25,17 +25,8 @@ class StatController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $stats = $this->repo->read();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return $this->sendOkResponse($stats, 200);
     }
 }

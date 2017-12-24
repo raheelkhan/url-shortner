@@ -72,16 +72,16 @@ class UrlApi
 
     /**
      * @param string $short_url
-     * @return string
+     * @return array
      * @throws UrlNotFoundException
      */
-    public function getLongUrl(string $short_url): string
+    public function getLongUrl(string $short_url): array
     {
         $url = $this->repo->findBy('short_url', $short_url);
         if (!$url) {
             throw new UrlNotFoundException('short url not found');
         }
 
-        return $url[0]['url'];
+        return $url[0];
     }
 }

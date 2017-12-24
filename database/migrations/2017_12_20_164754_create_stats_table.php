@@ -18,7 +18,6 @@ class CreateStatsTable extends Migration
             $table->integer('url_id');
             $table->ipAddress('ip_address');
             $table->char('user_agent');
-            $table->char('operating_system');
             $table->timestamp('visited_on');
             $table->foreign('url_id')->references('id')->on('urls');
         });

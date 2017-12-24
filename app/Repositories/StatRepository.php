@@ -13,17 +13,14 @@ class StatRepository implements RepositoryInterface
      */
     public function create(array $data): array
     {
-        return (new Stat())->toArray();
-    }
-
-    /**
-     * @param int $id
-     * @param array $data
-     * @return array
-     */
-    public function update(int $id, array $data): array
-    {
-        return (new Stat())->toArray();
+        $stat = new Stat();
+        $stat->url_id = $data['url_id'];
+        $stat->ip_address = $data['ip_address'];
+        $stat->user_agent = $data['user_agent'];
+        $stat->visited_on = $data['visited_on'];
+        $stat->save();
+        
+        return $stat->toArray();
     }
 
     /**
@@ -32,13 +29,27 @@ class StatRepository implements RepositoryInterface
      */
     public function read(int $id = null): array
     {
-        return (new Stat())->toArray();
+        $stat = (($id) ? Stat::find($id) : Stat::all())->toArray();
+
+        return $stat;
     }
 
+    /**
+     * @param int $id
+     * @param array $data
+     * @return array
+     * @todo Implement functionality
+     */
+    public function update(int $id, array $data): array
+    {
+        return [];
+    }
 
     /**
-     * @param string 
-     * @return Stat[]
+     * @param string $column
+     * @param string $value
+     * @return array
+     * @todo Implement functionality
      */
     public function findBy(string $column, string $value): array
     {
@@ -48,9 +59,10 @@ class StatRepository implements RepositoryInterface
     /**
      * @param int $id
      * @return bool
+     * @todo Implement functionality
      */
     public function delete(int $id): bool
     {
-        return true;
+        return false;
     }
 }

@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('url', 'UrlController');
+Route::resource('url', 'UrlController', ['only' => ['index', 'store', 'show']]);
 
-Route::resource('stat', 'StatController');
+Route::resource('stat', 'StatController', ['only' => ['index']]);

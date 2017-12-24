@@ -8,6 +8,8 @@ use App\Services\UrlApi;
 use App\Exceptions\InvalidUrlException;
 use App\Exceptions\UrlNotFoundException;
 use Illuminate\Http\RedirectResponse;
+use App\Repositories\StatRepository;
+use App\Repositories\RepositoryInterface;
 
 class IndexController extends Controller
 {
@@ -17,11 +19,17 @@ class IndexController extends Controller
     private $api;
 
     /**
+     * @var RepositoryInterface
+     */
+    private $repo;
+
+    /**
      * @param UrlApi $api
      */
-    public function __construct(UrlApi $api)
+    public function __construct(UrlApi $api, RepositoryInterface $repo)
     {
         $this->api = $api;
+        $this->repo = $repo;
     }
     
     /**
@@ -55,18 +63,26 @@ class IndexController extends Controller
     }
 
     /**
-     * @param string $short_url
+     * @param string $shortUrl
      */
-    public function route(string $short_url)
+    public function route(Request $request, string $shortUrl)
     {
-        $short_url = env('APP_URL') . $short_url;
+        $shortUrl = env('APP_URL') . $shortUrl;
 
         try {
-            $url = $this->api->getLongUrl($short_url);
+            $url = $this->api->getLongUrl($shortUrl);
         } catch (UrlNotFoundException $e) {
             abort(404);
         }
 
-        return new RedirectResponse($url);
+        $statsData = [
+            'url_id' => $url['id'],
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'visited_on' => date('Y-m-d H:i:s')
+        ];
+        $stat = $this->repo->create($statsData);
+        
+        return new RedirectResponse($url['url']);
     }
 }
