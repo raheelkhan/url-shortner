@@ -7,11 +7,6 @@ use App\Exceptions\InvalidUrlException;
 class UrlService
 {
     /**
-     * @var string
-     */
-    private static $chars = "123456789bcdfghjkmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ";
-
-    /**
      * Returns true if the url is reachable otherwise false
      * 
      * @param string $url
@@ -28,8 +23,8 @@ class UrlService
      */
     public function shorten(int $id): string
     {
-        $short_url = rand();
+        $shortUrl = base_convert($id, 10, 36);
 
-        return $short_url;
+        return $shortUrl;
     }
 }
